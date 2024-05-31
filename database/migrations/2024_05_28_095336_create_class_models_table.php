@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('class_models', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('teacher_id')->nullable();
+            $table->string('subject');
             $table->timestamps();
         });
     }
