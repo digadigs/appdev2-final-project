@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\ClassModelController;
 use App\Http\Controllers\StudentController;
@@ -20,12 +22,14 @@ use App\Http\Controllers\AttendanceController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::middleware('auth:sanctum')->post('logout', [AuthController::class, 'logout']);
 
-Route::apiResource('teachers', TeacherController::class);
-Route::apiResource('classes', ClassModelController::class);
-Route::apiResource('students', StudentController::class);
-Route::apiResource('statuses', StatusController::class);
-Route::apiResource('attendances', AttendanceController::class);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('teachers', TeacherController::class);
+    Route::apiResource('classes', ClassModelController::class);
+    Route::apiResource('students', StudentController::class);
+    Route::apiResource('statuses', StatusController::class);
+    Route::apiResource('attendances', AttendanceController::class);
+});
