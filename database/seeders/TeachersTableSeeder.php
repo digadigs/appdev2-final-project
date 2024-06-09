@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Teacher;
 
 class TeachersTableSeeder extends Seeder
 {
@@ -12,6 +13,6 @@ class TeachersTableSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Teacher::factory()->count(10)->create();
     }
 }
