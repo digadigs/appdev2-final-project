@@ -37,9 +37,12 @@ class TeacherController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
         ]);
-
+        
         $teacher->update($request->all());
-        return $teacher;
+        return response()->json([
+            'message' => 'Teacher updated successfully',
+            'teacher' => $teacher,
+        ]);        
     }
 
     public function destroy(Teacher $teacher)
