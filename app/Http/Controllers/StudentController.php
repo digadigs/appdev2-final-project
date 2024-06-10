@@ -43,14 +43,20 @@ class StudentController extends Controller
             'lastname' => 'required',
             'course' => 'required',
         ]);
-
+        
         $student->update($request->all());
-        return $student;
+        
+        return response()->json([
+            'message' => 'Student updated successfully',
+            'student' => $student,
+        ]);
+        
     }
 
     public function destroy(Student $student)
     {
         $student->delete();
-        return response()->noContent();
+        return response()->json(['message' => 'Student deleted successfully'], 200);
+
     }
 }
