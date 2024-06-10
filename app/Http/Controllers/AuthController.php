@@ -34,18 +34,23 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string',
         ]);
-
+        
         $user = User::where('email', $request->email)->first();
-
+        
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
         }
-
+        
         $token = $user->createToken('auth_token')->plainTextToken;
-
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Login successful',
+            'access_token' => $token,
+            'token_type' => 'Bearer'
+        ]);
     }
 
     public function logout(Request $request)
