@@ -25,8 +25,15 @@ class StudentController extends Controller
             'lastname' => 'required',
             'course' => 'required',
         ]);
-
-        return Student::create($request->all());
+        
+        $student = Student::create($request->all());
+        
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Student added successfully',
+            'student' => $student
+        ]);
+        
     }
 
     public function show(Student $student)
