@@ -24,7 +24,12 @@ class AttendanceController extends Controller
             'token' => 'required',
         ]);
 
-        return Attendance::create($request->all());
+        $attendance = Attendance::create($request->all());
+
+        return response()->json([
+            'message' => 'Attendance data successfully added',
+            'data' => $attendance
+        ], 201);
     }
 
     public function show(Attendance $attendance)
@@ -47,6 +52,9 @@ class AttendanceController extends Controller
     public function destroy(Attendance $attendance)
     {
         $attendance->delete();
-        return response()->noContent();
+
+        return response()->json([
+            'message' => 'Attendance data successfully deleted'
+        ], 200);
     }
 }
