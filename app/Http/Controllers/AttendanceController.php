@@ -44,9 +44,13 @@ class AttendanceController extends Controller
             'status_id' => 'required|exists:statuses,id',
             'token' => 'required',
         ]);
-
+        
         $attendance->update($request->all());
-        return $attendance;
+        
+        return response()->json([
+            'message' => 'Attendance successfully updated',
+            'attendance' => $attendance
+        ], 200);
     }
 
     public function destroy(Attendance $attendance)
